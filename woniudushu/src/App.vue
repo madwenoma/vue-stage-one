@@ -36,6 +36,16 @@ export default {
 </script>
 
 <style>
+.text-primary {
+	color: #EA5149
+}
+
+.text-footer {
+	text-align: center;
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+
 .container {
 	height: 100%;
 	display: flex;

@@ -17,7 +17,7 @@ import YearProgress from '@/components/YearProgress' //src下的组件目录直�
 import qcloud from "wafer2-client-sdk"
 import config from '@/config'
 import {
-	get,
+	post,
 	showSuccess
 } from "@/util"
 
@@ -41,11 +41,22 @@ export default {
 	},
 
 	methods: {
+		async addBook(isbn) {
+			// const res = await post(config.host + '/addbook', {
+			const res = await post('/weapp/addbook', {
+				isbn,
+				openid: this.userinfo.openId
+			})
+			if (res.code == 0 && res.data.title) {
+				showSuccess('添加成功', `${res.data.title}添加成功`)
+			}
+		},
 		scanBook() {
 			// 允许从相机和相册扫码
 			wx.scanCode({
-				success(res) {
+				success: (res) => {
 					console.log(res)
+					this.addBook(res.result)
 				}
 			})
 		},

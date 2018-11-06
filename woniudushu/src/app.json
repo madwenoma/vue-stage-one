@@ -1,7 +1,8 @@
 {
 	"pages": [
-		"pages/me/main",
 		"pages/books/main",
+		"pages/detail/main",
+		"pages/me/main",
 		"pages/comments/main",
 		"pages/index/main",
 		"pages/logs/main"
@@ -10,7 +11,8 @@
 		"backgroundTextStyle": "light",
 		"navigationBarBackgroundColor": "#EA5149",
 		"navigationBarTitleText": "蜗牛读书",
-		"navigationBarTextStyle": "black"
+		"navigationBarTextStyle": "black",
+		"enablePullDownRefresh": true
 	},
 	"tabBar": {
 		"list": [{

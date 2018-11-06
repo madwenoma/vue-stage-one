@@ -1,43 +1,61 @@
 import config from "./config.js"
 
-export function get(url) {
+// export function get(url) {
+// 	return new Promise((resolve, reject) => {
+// 		console.log(config.host)
+// 		wx.request({
+// 			url: config.host + url,
+// 			success: function(res) {
+// 				// console.log(res.data)
+// 				if (res.statusCode == 200) {
+// 					resolve(res.data)
+// 				} else {
+// 					reject(res)
+// 				}
+// 			}
+// 		})
+// 	})
+// }
+export function get(url, data) {
+	return req(url, 'GET', data)
+}
+export function post(url, data) {
+	return req(url, 'POST', data)
+}
+
+function req(url, method, data) {
 	return new Promise((resolve, reject) => {
-		console.log(config.host)
 		wx.request({
 			url: config.host + url,
+			method,
+			data,
+			//     header: {
+			//         'content-type': 'application/json' // 默认值
+			//     },
 			success: function(res) {
-				// console.log(res.data)
-
-				if (res.statusCode == 200) {
+				if (res.data.code == 0) {
 					resolve(res.data)
 				} else {
+					showModal('失败', res.data.data.msg)
 					reject(res)
 				}
 			}
 		})
-
-		// wx.request({
-		//     url: config.host + '/api/tabZc/?v=1.2.21.17', //仅为示例，并非真实的接口地址
-		//     method: "POST",
-		//     data: {
-		//         x: '',
-		//         y: ''
-		//     },
-		//     header: {
-		//         'content-type': 'application/json' // 默认值
-		//     },
-		//     success(res) {
-		//         console.log(res.data)
-		//     }
-		// })
-
 	})
 }
 
-export function showSuccess(text) {
+export function showModal(title, content) {
+	wx.showModal({
+		title,
+		content,
+		showCancel: false
+	})
+}
+
+export function showSuccess(text, content) {
 	wx.showModal({
 		title: text,
-		// content: 'success content',
+		content: content,
 		icon: 'success',
 		success(res) {
 			if (res.confirm) {
