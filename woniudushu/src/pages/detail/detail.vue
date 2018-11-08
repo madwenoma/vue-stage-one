@@ -1,23 +1,32 @@
 <template>
-<div>图书:{{bookid}}</div>
+<div>
+	<BookInfo :book="book"></BookInfo>
+</div>
 </template>
 <script>
 import {
 	get
 } from "@/util"
 
+import BookInfo from "@/components/BookInfo"
+
 export default {
 	data() {
 		return {
-			bookid: ''
+			bookid: '',
+			book: {}
 		}
+	},
+	components: {
+		BookInfo
 	},
 	methods: {
 		async getBookDetail() {
 			const bookRsp = await get('/weapp/bookdetail', {
 				id: this.bookid
 			})
-			console.log(bookRsp)
+			console.log(bookRsp.data)
+			this.book = bookRsp.data
 		}
 	},
 	mounted() {
